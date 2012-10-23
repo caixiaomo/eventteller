@@ -15,6 +15,7 @@ public class article {
 	private Integer  taskstatus;
 	private Date   crawltime;
 	private String img;
+	private String imgs;
 	private Integer  subtopicid;
 	
 	
@@ -97,6 +98,13 @@ public class article {
 	public void setImg(String img) {
 		this.img = img;
 	}
+	public String getImgs() {
+		return imgs;
+	}
+	public void setImgs(String imgs) {
+		this.imgs = imgs;
+	}
+	
 
 	
 	

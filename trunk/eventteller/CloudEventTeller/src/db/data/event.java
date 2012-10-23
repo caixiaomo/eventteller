@@ -15,6 +15,7 @@ public class event {
 	private Integer taskstatus;
 	private Integer topicid;
 	private String  img;
+	private String  imgs;
 	private Integer  subtopicid;
 	private Integer  province;
 	
@@ -100,6 +101,12 @@ public class event {
 	}
 	public void setProvince(Integer province) {
 		this.province = province;
+	}
+	public String getImgs() {
+		return imgs;
+	}
+	public void setImgs(String imgs) {
+		this.imgs = imgs;
 	}
 	
 	

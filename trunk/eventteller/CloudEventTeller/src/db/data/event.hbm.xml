@@ -84,6 +84,13 @@
 			length="1000"
 		/>
 		<property
+			name="imgs"
+			column="imgs"
+			type="string"
+			not-null="false"
+			length="2000"
+		/>
+		<property
 			name="subtopicid"
 			column="subtopicid"
 			type="integer"

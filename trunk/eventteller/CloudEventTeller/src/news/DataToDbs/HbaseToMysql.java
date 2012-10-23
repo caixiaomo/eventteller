@@ -68,21 +68,7 @@ public class HbaseToMysql {
 		}
 		session = new HSession().createSession();
 	}
-	
-	public String checkUTF8(String scr){
-		StringBuilder result = new StringBuilder();
-		for(int i = 0 ;i<scr.length();i++){
-			if((int)scr.charAt(i) < 65000 && (int)scr.charAt(i) > 55000){
-				result.append(scr.charAt(i));
-			}else{
-				result.append("_");
-			}
-		}	
-		return scr;
-	}
-	
-	
-	
+
 	/**
 	 * @param result
 	 * @param family
@@ -98,7 +84,6 @@ public class HbaseToMysql {
 		}
 		if(temp.length>0){
 			result_str = Bytes.toString(temp);
-//			result_str = checkUTF8(result_str);
 		}
 		return result_str;
 	}
@@ -201,7 +186,8 @@ public class HbaseToMysql {
     	String titlewords = getValueFromResult(result,"info","titlewords");
     	String summarywords = getValueFromResult(result,"info","summarywords");	
     	String crawltime = getValueFromResult(result,"info","crawltime");	
-    	String img = getValueFromResult(result,"info","img");	
+    	String img = getValueFromResult(result,"info","img");
+    	String imgs = getValueFromResult(result,"info","imgs");
     	String subtopicid =  getValueFromResult(result,"info","subtopicid");
     	at.setId(Bytes.toInt(ids));
     	at.setTitle(title);
@@ -214,6 +200,7 @@ public class HbaseToMysql {
     	at.setTaskstatus(Const.TASKID.get("HtmlFromHbaseToMysql"));
     	at.setEventid(0);
     	at.setImg(img);
+    	at.setImgs(imgs);
     	at.setSubtopicid(Integer.valueOf(subtopicid));
     	try {
 			at.setCrawltime(format.parse(crawltime));
@@ -244,7 +231,6 @@ public class HbaseToMysql {
 					continue;
 		    	ls_results.add(at);
 		    	deleteFromHbase(ht,result);
-//		    	System.out.println(at.getId()+" updated!");		  
 			}
 			scanner.close();
 		} catch (IOException e) {
@@ -261,16 +247,13 @@ public class HbaseToMysql {
 		
 		for(article at:ats){	
 			try{
-				Transaction tx = session.beginTransaction();
-			
-				session.merge(at);
-				
-		
+				Transaction tx = session.beginTransaction();			
+				session.merge(at);		
 				tx.commit();
 				session.flush();
-			
 			}catch(Exception e){
 				System.out.println(at.getId());
+				System.out.println(at.getImgs());
 			}
 		}
 	}

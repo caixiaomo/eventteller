@@ -30,5 +30,26 @@ public class Util {
 		}		
 		return result;
 	}
+	
+	/**
+	 * @param texts
+	 * @return
+	 * @Description:convert list to string
+	 */
+	public static String ListToStr(List<String> texts,String split,int n){
+		String result = "";
+		int num = 0;
+		for(String text:texts ){
+			num++;
+			if(num == 1){
+				result = text;
+			}else{
+				result += split +  text ;	
+			}		
+			if(num > 10)
+				break;
+		}		
+		return result;
+	}
 
 }
