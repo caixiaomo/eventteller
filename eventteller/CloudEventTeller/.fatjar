@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Sun Oct 21 23:43:07 CST 2012
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=EventDetection.jar
+manifest.mergeall=true
+manifest.mainclass=news.core.EventDetection
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=
+includes=

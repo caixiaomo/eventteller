@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configs>
+	<Config name="indexPath">
+		<Path>/home/iir/hgj/index</Path>
+	</Config>
+	<Config name="EventIndexPath">
+		<Path>/home/iir/hgj/EventIndex</Path>
+	</Config>
+	<Config name="WebindexPath">
+		<Path>/home/mblank/index</Path>
+	</Config>
+	<Config name="WebEventIndexPath">
+		<Path>/home/mblank/EventIndex</Path>
+	</Config>
+</Configs>

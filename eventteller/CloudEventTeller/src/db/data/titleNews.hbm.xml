@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="db.data">
+	<class
+		name="titleNews"
+		table="titlenews" dynamic-update="true"
+	>
+		<meta attribute="sync-DAO">false</meta>
+		<id
+			name="id"
+			type="integer"
+			column="id"
+		>
+			<generator class="native"></generator>
+		</id>
+
+		<property
+			name="webSite"
+			column="webSite"
+			type="string"
+			not-null="true"
+			length="20"
+		/>
+		<property
+			name="title"
+			column="title"
+			type="string"
+			not-null="false"
+			length="1000"
+		/>
+		<property
+			name="url"
+			column="url"
+			type="string"
+			not-null="false"
+			length="1000"
+		/>
+		<property
+			name="crawlTime"
+			column="crawltime"
+			type="java.util.Date"
+			not-null="true"
+			length="14"
+		/>
+		<property
+			name="subtopicId"
+			column="subtopicid"
+			type="integer"
+			not-null="false"
+			length="32"
+		/>
+		<property
+			name="taskStatus"
+			column="taskstatus"
+			type="integer"
+			not-null="false"
+			length="32"
+		/>
+		<property
+			name="EventId"
+			column="eventid"
+			type="integer"
+			not-null="false"
+			length="32"
+		/>
+	</class>	
+</hibernate-mapping>
