@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<!-- 
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    -->
+	
+    <package name="default" namespace="/" extends="struts-default">
+    
+        <global-results>
+            <result name="error">/error.jsp</result>
+        </global-results>
+
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="error"/>
+        </global-exception-mappings>
+
+    </package>
+    
+	<constant name="struts.devMode" value="true" />
+	
+	<package name="eventday" namespace="/" extends="default">
+        <action name="find" class="com.eventteller.action.test" method="nlist">
+        	<result name="success">/nlist.jsp</result>
+			<result name="noid">/noid.jsp</result>
+        </action>
+        <action name="show_article" class="com.eventteller.action.ArticleAction" method="show">
+        	<result>/article.jsp</result>
+        </action>
+    </package>
+   
+    <!-- Add packages here -->
+    
+</struts>
