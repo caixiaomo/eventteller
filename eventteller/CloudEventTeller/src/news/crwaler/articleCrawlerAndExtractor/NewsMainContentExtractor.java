@@ -93,10 +93,14 @@ public class NewsMainContentExtractor {
 	public  List<String> getMainParagraph(Element main){
 		List<String> result = new ArrayList<String>();
 			if(main != null){
+				int num = main.children().size();
+				int check = 0;
 				for(Element el : main.children()){
-//					System.out.println(el.tagName() + " " + el.children().size() + " " + el.text());
-					if(el.text().contains("编辑")|| el.text().toLowerCase().contains("copyright")&&
-							el.children().size() ==0 || el.text().contains("本报记者") || el.text().contains("原标题"))
+					check++;
+//					System.out.println(el.tagName() + " " + el.siblingIndex() + " " + el.text());
+					if((el.text().contains("编辑")|| el.text().toLowerCase().contains("copyright")
+							|| el.text().contains("本报记者") || el.text().contains("原标题"))
+							&& (el.children().size() ==0 && num - check < 2))
 						continue;
 					if(el.tagName().equals("a") || el.tagName().equals("img"))
 						continue;
@@ -112,16 +116,23 @@ public class NewsMainContentExtractor {
 			}
 		return result;
 	}
-	
+		
 	public List<String> cleanImgUrls(List<String> scrs, String line){
 		String html = DOC.html();
 		List<String> results = new ArrayList<String>();
+		if(line.indexOf("，") >= 0){
+			line = line.substring(0,line.indexOf("，"));
+		}
+		if(line.indexOf(",") >= 0){
+			line = line.substring(0,line.indexOf(","));
+		}
 		int index_last_line = html.indexOf(line);
+		
 		if(index_last_line < 0){
 			return scrs;
 		}		
 		for(String scr : scrs){
-			int tmp = html.indexOf(scr);
+			int tmp = html.indexOf(scr);			
 			if(tmp < index_last_line){
 				results.add(scr);
 			}
@@ -133,10 +144,10 @@ public class NewsMainContentExtractor {
 		
 		List<String> urls = new ArrayList<String>();
 			Elements els = main.getElementsByTag("img");
-			if(els.size() == 0){
-				main = main.parent();
-				els = main.getElementsByTag("img");
-			}
+//			if(els.size() == 0){
+//				main = main.parent();
+//				els = main.getElementsByTag("img");
+//			}
 			for(Element el : els){
 				if(el.children().size() == 0 && el.tagName().equals("img")){
 					String tmp_url = el.attr("src");

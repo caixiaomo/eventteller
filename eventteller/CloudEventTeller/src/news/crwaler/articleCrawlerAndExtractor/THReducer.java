@@ -20,24 +20,24 @@ import util.Const;
 			if(temp_by!=null){
 				
 			String temp = Bytes.toString(temp_by);   
-			String title = "";
-//			String plaintext = "";			
+			String title = "";			
 			String publishtime = "";
 			String mainparagraph = "";
 			String mainparagraphwords = "";
 			String titlewords = "";
 			String summarywords = "";
 			String img = "";
+			String imgs = "";
 			try{
 				ArticleExtractor aex = new ArticleExtractor(temp);
 				title = aex.getTitle();
-//				plaintext = aex.getPlainText();			
 				publishtime = aex.getPublishTime();
 				mainparagraph = aex.getFormatMainParagraph();
 				mainparagraphwords = aex.mainParagraphWordsWithFrequency();
 				titlewords = aex.titleWordsWithFrequency();
 				summarywords = aex.SummaryWordsWithFrequency();
 				img = aex.getImg();
+				imgs = aex.getImgs();
 			}catch(Exception e){
 				e.printStackTrace();
 			}			
@@ -45,14 +45,14 @@ import util.Const;
 			put.add(Bytes.toBytes("info"), Bytes.toBytes("html"), Bytes.toBytes(temp));
 			put.add(Bytes.toBytes("info"), Bytes.toBytes("status"), Bytes.toBytes("3"));
 			put.add(Bytes.toBytes("info"), Bytes.toBytes("title"), Bytes.toBytes(title));
-//			put.add(Bytes.toBytes("info"), Bytes.toBytes("plaintext"), Bytes.toBytes(plaintext));
 			put.add(Bytes.toBytes("info"), Bytes.toBytes("publishtime"), Bytes.toBytes(publishtime));
 			put.add(Bytes.toBytes("info"), Bytes.toBytes("mainparagraph"), Bytes.toBytes(mainparagraph));
 			put.add(Bytes.toBytes("info"), Bytes.toBytes("mainparagraphwords"), Bytes.toBytes(mainparagraphwords));
 			put.add(Bytes.toBytes("info"), Bytes.toBytes("titlewords"), Bytes.toBytes(titlewords));
 			put.add(Bytes.toBytes("info"), Bytes.toBytes("summarywords"), Bytes.toBytes(summarywords));
 			put.add(Bytes.toBytes("info"), Bytes.toBytes("img"), Bytes.toBytes(img));
-			if(mainparagraph.length() > 0){
+			put.add(Bytes.toBytes("info"), Bytes.toBytes("imgs"), Bytes.toBytes(imgs));
+			if(mainparagraph.length() > 150){
 				context.write(key, put);
 			}			
 			}

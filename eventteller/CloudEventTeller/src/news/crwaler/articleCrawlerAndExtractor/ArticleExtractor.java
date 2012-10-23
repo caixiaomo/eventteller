@@ -35,15 +35,9 @@ public class ArticleExtractor {
 	
 	public String HTML;
 	public Document DOC;
-//	public List<String> plaintext;
-//	public String rawtext;
 	public String title;
 	public String publishtime;
 	public String mainParagraph;
-//	public String rawtitle;
-//	public List<String> cleanRawText;
-//	public static final char[] NAVIALSIGNS=new char[]{'-','|','>','/','<'};
-//	public static final String[] STARTSPECSIGNS=new String[]{"?"};
 	
 	public ArticleExtractor(String html){
 		this.HTML = html;
@@ -52,14 +46,9 @@ public class ArticleExtractor {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-//		rawtext = getPlainText();
-//		plaintext = filterShortStr(rawtext);
 		mainParagraph = getMainParagraph();
-//		rawtitle = getRawTitle();
 		title = getTitle();
-		publishtime = getPublishTime();
-//		cleanRawText = cleanRawText();
-		
+		publishtime = getPublishTime();		
 	}
 	
 	/**
@@ -75,14 +64,6 @@ public class ArticleExtractor {
 		}		
 		return result;
 	}
-//	
-//	public String getRawTitle(){
-//		if(DOC!=null){
-//			return DOC.title();
-//		}else
-//			return "";		
-//	}
-	
 	
 	public String cleanTitle(String rawTitle){
 		if(rawTitle.indexOf("_") > 0){
@@ -96,6 +77,9 @@ public class ArticleExtractor {
 		}
 		if(rawTitle.indexOf("--") > 0){
 			rawTitle = rawTitle.substring(0, rawTitle.indexOf("--"));
+		}
+		if(rawTitle.indexOf("-") > 0){
+			rawTitle = rawTitle.substring(0, rawTitle.indexOf("-"));
 		}
 		
 		return rawTitle;
@@ -184,68 +168,6 @@ public class ArticleExtractor {
 		return strToTime(result);
 	}
 	
-//	/**
-//	 * @return
-//	 * @Description:remove the logo of website from raw html
-//	 */
-//	public String filterSiteLogo(){
-//		String[] split_raw = rawtext.split(" ");
-//		String result = "";
-//		if(split_raw.length<2*Const.SiteLogoLineCount){
-//			return rawtext;
-//		}
-//		for(int i =0 ;i<split_raw.length-Const.SiteLogoLineCount;i++){
-//			result += split_raw[i] + " ";
-//		}		
-//		return result;
-//	}
-	
-//	/**
-//	 * @param elements
-//	 * @return
-//	 * @Description:remove dupLine from the list
-//	 */
-//	public List<String> removeDupLine(List<String> elements){
-//	
-//		List<String> results=new ArrayList<String>();
-//		HashMap<String,Boolean> map=new HashMap<String,Boolean>();
-//		for(int i=0;i<elements.size();i++){
-//			String element=elements.get(i);
-//			if(map.containsKey(element)){
-//				continue;
-//			}else{
-//				results.add(element);
-//				map.put(element, true);
-//			}
-//		}
-//		///remove title string from the mainparagraph
-//		if(results.contains(rawtitle)){
-//			results.remove(rawtitle);
-//		}		
-//		return results;
-//	}
-			
-//	/**
-//	 * @param elements
-//	 * @return
-//	 * @Description:sort the List by string length
-//	 * @Mark:not used in this version!
-//	 */
-//	public List<String> sortRawTextByLen(List<String> elements){
-//		List<String> results = new ArrayList<String>();
-//		Map<Integer,String> temp_mp = new TreeMap<Integer,String>();
-//		for(int i =0;i<elements.size();i++){
-//			String tempi = elements.get(i);
-//			temp_mp.put(tempi.length(), tempi);
-//		}
-//		Iterator<Integer> it_results = temp_mp.keySet().iterator();
-//		while(it_results.hasNext()){
-//			int len = it_results.next();
-//			String temps = temp_mp.get(len);
-//			results.add(temps);
-//		}
-//		return results;
-//	}
 	
 	/**
 	 * @param text
@@ -283,112 +205,16 @@ public class ArticleExtractor {
 		result = splitStrToWords(mainParagraph);
 		return result;
 	}
-	
-//	/**
-//	 * @param texts
-//	 * @return
-//	 * @Description:according the title split words ,filter the article
-//	 * @e.g. if title words are xx1 xx2 xx3,if the string not contain any of them
-//	 * @e.g. it will be filtered 
-//	 */
-//	public List<String> removeInvalidStr(List<String> texts){
-//		List<String> results = new ArrayList<String>();
-//		List<String> title_split = new ArrayList<String>();
-//		title_split = splitTitleToWords();
-//		for(String text : texts){
-//			boolean check = false;
-//			for(String tw:title_split){
-//				if(text.contains(tw)){
-//					check = true;
-//					break;
-//				}
-//			}
-//			if(check){
-//				results.add(text);
-//			}
-//		}
-//		return results;
-//	}
-	
-//	/**
-//	 * @param c
-//	 * @param str
-//	 * @return
-//	 * @Description:how many input char contains in the str
-//	 */
-//	public static int getSignCount(char c,String str){
-//		int count=0;
-//		for(int i=0;i<str.length();i++){
-//			if(str.charAt(i)==c){
-//				count++;
-//			}
-//		}
-//		return count;
-//	}
-	
-//	/**
-//	 * @param texts
-//	 * @return
-//	 * @Description:remove some navigate sentences using filter the navialsigns
-//	 */
-//	public List<String> removeSpecialSigns(List<String> texts){
-//		List<String> results = new ArrayList<String>();
-//		for(String text:texts){
-//			boolean check = false;
-//			for(int i=0;i<text.length();i++){
-//				for(int j=0;j<NAVIALSIGNS.length;j++){
-//					if(getSignCount(NAVIALSIGNS[j],text)>=Const.NoMeaningSigns){
-//						check = true;
-//						break;
-//					}
-//				}
-//				if(check)
-//					break;
-//			}
-//			if(!check)
-//				results.add(text);
-//		}		
-//		return results;
-//	}
-	
-//	public int getMostNumberFromSentences(Map<Integer,Integer> scrs){
-//		Iterator<Integer> it_nums = scrs.keySet().iterator();
-//		int max = 0;
-//		int results = 0;
-//		while(it_nums.hasNext()){
-//			int num = it_nums.next();
-//			if(scrs.get(num) > max){
-//				results = num;
-//				max = scrs.get(num);
-//			}
-//		}
-//		return results;
-//	}
-	
-
-//	
-//	public double getAvgStationOfSentences(List<String> scrs){
-//		double results =0 ;
-//		if(scrs.size()>= 1){
-//			results = HTML.indexOf(scrs.get(scrs.size()-1));
-//		}	
-//		return results;		
-//	}
-	
-
-//	public String getImg(){
-//		String results = "";
-//		double avgLen = 0;
-//		List<String> sentences = new ArrayList<String>();
-//		sentences = cleanRawText();
-//		avgLen = getAvgStationOfSentences(sentences);
-//		results = getMostPosiblePic(avgLen);
-//		return results;
-//	}
-	
+		
 	public String getImg(){
 		String results = "";
 		results = getMostPosiblePic();
+		return results;
+	}
+	
+	public String getImgs(){
+		String results = "";
+		results = Util.ListToStr(getPosiblePics(), ",",10);
 		return results;
 	}
 	
@@ -407,6 +233,14 @@ public class ArticleExtractor {
 	
 	public String getMostPosiblePic(){
 		String result = "";
+		List<String> imgs = new ArrayList<String>();
+		imgs = getPosiblePics();
+		if(imgs != null && imgs.size() > 0)
+			result = imgs.get(0);	
+		return result;
+	}
+	
+	public List<String> getPosiblePics(){
 		if(DOC == null){
 			try{
 				DOC = Jsoup.parse(HTML);	
@@ -417,14 +251,9 @@ public class ArticleExtractor {
 		NewsMainContentExtractor nmce = new NewsMainContentExtractor(DOC);
 		Element main = nmce.getMainElement();
 		List<String> imgs = nmce.getImgUrls(main);
-		
-		System.out.println(imgs.size());
-		
 		List<String> mainP = nmce.getMainParagraph(main);
 		imgs = nmce.cleanImgUrls(imgs,mainP.get(mainP.size() -1));
-		if(imgs.size() > 0)
-			result = imgs.get(0);	
-		return result;
+		return imgs;
 	}
 	
 	
@@ -556,7 +385,7 @@ public class ArticleExtractor {
 			temp = it_words.next();
 			int num = 0;
 			num = mp_results.get(temp);
-			temp = temp + " " + String.valueOf(num)+",";
+			temp = temp + " " + String.valueOf(num);
 			results.add(temp);
 		}
 		return results;
