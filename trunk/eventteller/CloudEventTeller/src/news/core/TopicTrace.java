@@ -82,6 +82,8 @@ public class TopicTrace {
 	
 	public List<String> getWordsFromEvent(event en){
 		List<String> results = new ArrayList<String>();
+		if(en.getSummarywords() == null || en.getSummarywords().length() == 0)
+			return results;
 		String[] terms = en.getSummarywords().split(",");
 		Map<String,Integer> w_tfs = new HashMap<String,Integer>();
 		for(String term:terms){
@@ -125,6 +127,9 @@ public class TopicTrace {
 	
 	public Map<String,Double> getRawWordAndScoreFromArticle(event en){
 		Map<String,Double> results = new HashMap<String,Double>();
+		if(en.getSummarywords()== null || en.getSummarywords().length() == 0){
+			return results;
+		}
 		String[] terms = en.getSummarywords().split(",");
 		Map<String,Integer> w_tfs = new HashMap<String,Integer>();
 		for(String term:terms){

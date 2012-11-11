@@ -1,8 +1,12 @@
 package news.crwaler.webSiteCrawler;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+//import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -23,6 +27,7 @@ import org.jsoup.select.Elements;
 
 
 import db.HSession;
+//import db.data.event;
 import db.data.titleNews;
 
 import news.filter.titleNewsFilter;
@@ -385,17 +390,46 @@ public class WebSiteCrawler {
 		session.flush();
 	}
 	
+
+	public Date getMaxDay(){
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date results;
+		try {
+			results = sdf.parse("2012-11-01 00:00:00");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		String hql = "select max(obj.crawlTime) from titleNews as obj";
+		results = (Date) session.createQuery(hql).uniqueResult();	
+		return results;
+	}
+	
 	/**
 	 * @return
 	 * @Description:get titleNews from db.
 	 * @mark: there maybe some limits set in the future
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	public List<titleNews> getExistsTitleNewsFromDB(){
-		String hql = "from titleNews";
-		Query query = session.createQuery(hql);
-		List<titleNews> ls_tn = (List<titleNews>)query.list();
-		Log.getLogger().info("Find titles in db: "+ls_tn.size());		
+		List<titleNews> ls_tn = new ArrayList<titleNews>();
+		try{
+			Date date = getMaxDay();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");		
+			GregorianCalendar gc=new GregorianCalendar(); 
+			gc.setTime(date); 
+			gc.add(5,-10); 		
+			date = gc.getTime();		
+			sdf.format(date);		
+			String hql = "from titleNews as obj where obj.crawlTime >" + date.toLocaleString().split(" ")[0];
+			Query query = session.createQuery(hql);
+			ls_tn = (List<titleNews>)query.list();
+			Log.getLogger().info("Find titles in db: "+ls_tn.size());
+		}catch(Exception e){
+			String hql = "from titleNews";
+			Query query = session.createQuery(hql);
+			ls_tn = (List<titleNews>)query.list();
+			Log.getLogger().info("Find titles in db: "+ls_tn.size());
+		}				
 		return ls_tn;		
 	}
 	
@@ -513,6 +547,8 @@ public class WebSiteCrawler {
 		
 		WebSiteCrawler wsc = new WebSiteCrawler();
 		wsc.runTask();
+		
+		
 	}
 	
 	

@@ -51,11 +51,11 @@ public class test {
 
 	public static void main(String[] args) throws IOException{
 
-		String url = "http://sports.163.com/12/1023/22/8EHKU9MV00051C89.html";
+		String url = "http://world.gmw.cn/2012-10/22/content_5440613.htm";
 		String html = Jsoup.connect(url).get().html();
 		ArticleExtractor ae = new ArticleExtractor(html);
 //		String rawtext = ae.title;
-		System.out.println(ae.mainParagraph);
+		System.out.println(ae.mainParagraph.length());
 		System.out.println(ae.getImgs());
 		
 	}

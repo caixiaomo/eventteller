@@ -1,12 +1,12 @@
 #Fat Jar Configuration File
-#Tue Oct 23 23:17:51 CST 2012
+#Sun Nov 11 13:20:33 CST 2012
 onejar.license.required=true
 manifest.classpath=
 manifest.removesigners=true
 onejar.checkbox=false
-jarname=HbaseToMysql.jar
+jarname=TopicTrace.jar
 manifest.mergeall=true
-manifest.mainclass=news.DataToDbs.HbaseToMysql
+manifest.mainclass=news.core.TopicTrace
 manifest.file=<createnew>
 jarname.isextern=false
 onejar.expand=

@@ -135,7 +135,6 @@ public class HbaseToMysql {
 				String temp_word = term.split(" ")[0];
 				if(temp_word==null||temp_word.length()<=0||temp_word.length()>20)
 					continue;
-				
 				double temp_score = scores.get(temp_word);
 				String new_term = term + " " + String.valueOf(temp_score);				
 				temp_summary +=new_term + ",";				
@@ -189,6 +188,13 @@ public class HbaseToMysql {
     	String img = getValueFromResult(result,"info","img");
     	String imgs = getValueFromResult(result,"info","imgs");
     	String subtopicid =  getValueFromResult(result,"info","subtopicid");
+    	int subtopic_int;
+    	try{
+    		subtopic_int = Integer.valueOf(subtopicid);
+    	}catch(Exception e){
+    		subtopic_int = 0;
+    		e.printStackTrace();
+    	}    	
     	at.setId(Bytes.toInt(ids));
     	at.setTitle(title);
     	at.setPublishtime(publishtime);
@@ -201,7 +207,7 @@ public class HbaseToMysql {
     	at.setEventid(0);
     	at.setImg(img);
     	at.setImgs(imgs);
-    	at.setSubtopicid(Integer.valueOf(subtopicid));
+   		at.setSubtopicid(subtopic_int);
     	try {
 			at.setCrawltime(format.parse(crawltime));
 		} catch (ParseException e) {
@@ -254,6 +260,7 @@ public class HbaseToMysql {
 			}catch(Exception e){
 				System.out.println(at.getId());
 				System.out.println(at.getImgs());
+				e.printStackTrace();
 			}
 		}
 	}

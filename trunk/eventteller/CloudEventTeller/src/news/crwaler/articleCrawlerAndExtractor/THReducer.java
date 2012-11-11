@@ -52,7 +52,7 @@ import util.Const;
 			put.add(Bytes.toBytes("info"), Bytes.toBytes("summarywords"), Bytes.toBytes(summarywords));
 			put.add(Bytes.toBytes("info"), Bytes.toBytes("img"), Bytes.toBytes(img));
 			put.add(Bytes.toBytes("info"), Bytes.toBytes("imgs"), Bytes.toBytes(imgs));
-			if(mainparagraph.length() > 150){
+			if(mainparagraph.length() > 250){
 				context.write(key, put);
 			}			
 			}
