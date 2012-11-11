@@ -33,7 +33,7 @@ public class TopicKeyWords {
 	public List<Topic> getTopicFromDB(){
 		List<Topic> results = new ArrayList<Topic>();
 		String hql = "from Topic as obj where obj.updatestate = 1"; 
-//		String hql = "from Topic as obj where obj.id > 700000 and obj.title = '' and obj.id < 750000"; 
+//		String hql = "from Topic as obj where obj.id = 724755"; 
 		Query query = session.createQuery(hql);
 		results = (List<Topic>)query.list();
 		return results;
@@ -145,7 +145,7 @@ public class TopicKeyWords {
 		List<String> wordsFromTitle = getWordsOfTileFromEvents(scrs);
 		for(String wdft : wordsFromTitle){
 			if(names.containsKey(wdft)){
-				names.put(wdft, names.get(wdft) + 3);
+				names.put(wdft, names.get(wdft) + 2);
 			}else{
 				names.put(wdft, 3);
 			}

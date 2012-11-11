@@ -222,6 +222,7 @@ public class ArticleExtractor {
 		String result = "";
 		NewsMainContentExtractor nmce = new NewsMainContentExtractor(DOC);
 		Element main = nmce.getMainElement();
+		System.out.println(main.attr("class"));
 		result = Util.ListToStrForm(nmce.getMainParagraph(main));
 		return result;
 	}
@@ -399,7 +400,7 @@ public class ArticleExtractor {
 		String result = "";
 		List<String> ls_in = new ArrayList<String>();
 		ls_in = getSummaryList();
-		result = Util.ListToStr(ls_in);
+		result = Util.ListToStr(ls_in,",");
 		return result;
 	}
 	

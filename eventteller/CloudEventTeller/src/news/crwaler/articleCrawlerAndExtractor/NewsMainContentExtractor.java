@@ -22,6 +22,7 @@ public class NewsMainContentExtractor {
 	class TagCheck{
 		public double text_num = 1;
 		public double tag_num = 1;
+		public double link_num = 1;
 		
 	}
 	
@@ -41,6 +42,9 @@ public class NewsMainContentExtractor {
 
 		TagCheck total = new TagCheck();
 		total.tag_num = 1;
+		if(element.tagName().equals("a")){
+			total.link_num ++;
+		}
 		if(element.children().size() == 0){
 			return total;
 		}
@@ -49,18 +53,19 @@ public class NewsMainContentExtractor {
 			tmp = showTag(el,level+1);
 			if(tmp.text_num != 0 ){
 				total.tag_num += tmp.tag_num ;
+				total.link_num += tmp.link_num;
 			}	
 			if(el.tagName().equalsIgnoreCase("p") ||  el.tagName().equalsIgnoreCase("br")){
 				total.text_num++;
 			}			
 		}	
-		Double res = element.text().length() / total.tag_num * total.text_num;
-//		System.out.println(res + " " + element.attr("class") + " " +" " + total.tag_num +" " + total.text_num+" "+ element.text());
+		Double res = element.text().length() / total.tag_num * total.text_num ;/// total.link_num;
+//		System.out.println(res + " " + element.attr("class") + " " +" " + total.tag_num +" " + total.text_num+" "+ element.text().length());
 		if(res > MAX ){
 			MAX = res;
 			TEXT = res.toString();
 			if(!element.tagName().equalsIgnoreCase("img") || !element.tagName().equalsIgnoreCase("a")||
-					!element.tagName().equalsIgnoreCase("font")){
+					!element.tagName().equalsIgnoreCase("font")||!element.tagName().equalsIgnoreCase("p")){
 				element.tagName(TEXT);
 			}			
 		}	
@@ -85,6 +90,9 @@ public class NewsMainContentExtractor {
 		if(mains.size() > 0){
 			main = mains.get(0);
 		}		
+//		if(DOC.title().indexOf("光明网") > 0){
+//			
+//		}
 		return main;
 			
 	}
