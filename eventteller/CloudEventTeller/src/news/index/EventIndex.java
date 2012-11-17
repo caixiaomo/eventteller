@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 //import java.util.TreeMap;
 
-import news.crwaler.articleCrawlerAndExtractor.ChineseSplit;
+import news.crawler.articleCrawlerAndExtractor.ChineseSplit;
 
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
