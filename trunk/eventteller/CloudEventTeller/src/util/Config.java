@@ -18,7 +18,7 @@ import org.dom4j.io.SAXReader;
 */
 public class Config {
 	
-	private static Document document = null;
+	private  Document document = null;
 	
 	public Config(String configPath){
 		if(document==null){

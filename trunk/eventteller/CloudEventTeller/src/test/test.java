@@ -3,36 +3,25 @@ package test;
 //import java.io.BufferedReader;
 //import java.io.File;
 //import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+//import java.util.BitSet;
+import java.util.List;
 
-import news.crawler.articleCrawlerAndExtractor.ArticleExtractor;
+//import news.crawler.articleCrawlerAndExtractor.ArticleExtractor;
+import news.crawler.urlBloom.BloomFilter;
 
 //import org.apache.hadoop.hbase.util.Bytes;
 
 
 
-import org.jsoup.Jsoup;
-
-
-//import crawler.urlBoom.BloomFiler;
-
-
-
-//import db.data.Word;
-//import java.util.Map;
-//import java.util.Date;
-
-
 //import org.jsoup.Jsoup;
-//import org.jsoup.nodes.Document;
 
-//import db.data.Word;
 
-//import news.crwaler.articleCrawlerAndExtractor.ArticleExtractor;
-//import news.core.IDF;
-//import news.crwaler.articleCrawlerAndExtractor.ArticleExtractor;
-//import news.crwaler.articleCrawlerAndExtractor.ArticleExtractor;
-//import news.crwaler.articleCrawlerAndExtractor.ChineseSplit;
+
 
 
 
@@ -54,13 +43,29 @@ public class test {
 
 	public static void main(String[] args) throws IOException{
 
-//		String url = "http://world.gmw.cn/2012-10/22/content_5440613.htm";
-//		String html = Jsoup.connect(url).get().html();
-//		ArticleExtractor ae = new ArticleExtractor(html);
-////		String rawtext = ae.title;
-//		System.out.println(ae.mainParagraph.length());
-//		System.out.println(ae.getImgs());
+
+		BloomFilter bf = new BloomFilter();
+		BufferedReader br = new BufferedReader(new FileReader(new File("E:\\share\\urls")));
+		String line = "";
+		int total = 0;
+		int in_check = 0 ;
+		List<String> lss = new ArrayList<String>();
+		while((line = br.readLine()) != null){
+			if(Math.abs(line.hashCode() % 3) == 0){
+				bf.add(line);				
+				in_check++;
+			}
+			total++;
+			lss.add(line);
+		}
+		br.close();
+		int check = 0;
 		
-		
+		for(String ls : lss){
+			if(bf.contains(ls)){
+				check++;
+			}
+		}		
+		System.out.println(in_check + " " +check + " " + total);
 	}
 }

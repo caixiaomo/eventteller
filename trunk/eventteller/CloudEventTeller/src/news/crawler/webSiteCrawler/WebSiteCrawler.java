@@ -525,6 +525,7 @@ public class WebSiteCrawler {
 		while(true){	
 			Log.getLogger().info("Start Crawler for titleCrawler");
 			updateTitleNewsDB(getExistsTitleNewsFromDB(),getAllTitleNews());
+//			getAllTitleNews();
 			System.out.println("now end of Crawler..but must run java_gc..");
 			System.gc();
 			System.out.println("end of java_gc..so happy~!");
