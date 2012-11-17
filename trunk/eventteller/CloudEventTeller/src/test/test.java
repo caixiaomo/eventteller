@@ -5,13 +5,16 @@ package test;
 //import java.io.FileReader;
 import java.io.IOException;
 
-import news.crwaler.articleCrawlerAndExtractor.ArticleExtractor;
+import news.crawler.articleCrawlerAndExtractor.ArticleExtractor;
 
 //import org.apache.hadoop.hbase.util.Bytes;
 
 
 
 import org.jsoup.Jsoup;
+
+
+//import crawler.urlBoom.BloomFiler;
 
 
 
@@ -51,12 +54,13 @@ public class test {
 
 	public static void main(String[] args) throws IOException{
 
-		String url = "http://world.gmw.cn/2012-10/22/content_5440613.htm";
-		String html = Jsoup.connect(url).get().html();
-		ArticleExtractor ae = new ArticleExtractor(html);
-//		String rawtext = ae.title;
-		System.out.println(ae.mainParagraph.length());
-		System.out.println(ae.getImgs());
+//		String url = "http://world.gmw.cn/2012-10/22/content_5440613.htm";
+//		String html = Jsoup.connect(url).get().html();
+//		ArticleExtractor ae = new ArticleExtractor(html);
+////		String rawtext = ae.title;
+//		System.out.println(ae.mainParagraph.length());
+//		System.out.println(ae.getImgs());
+		
 		
 	}
 }

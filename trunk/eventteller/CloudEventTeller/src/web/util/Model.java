@@ -9,8 +9,8 @@ import java.util.Map;
 
 import news.core.EventDetection;
 import news.core.IDF;
-import news.crwaler.articleCrawlerAndExtractor.ArticleExtractor;
-import news.crwaler.articleCrawlerAndExtractor.downloadHtml;
+import news.crawler.articleCrawlerAndExtractor.ArticleExtractor;
+import news.crawler.articleCrawlerAndExtractor.downloadHtml;
 import news.index.ArticleIndex;
 import news.index.EventIndex;
 

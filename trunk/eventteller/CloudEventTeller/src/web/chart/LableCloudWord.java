@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 
-import news.crwaler.articleCrawlerAndExtractor.ChineseSplit;
+import news.crawler.articleCrawlerAndExtractor.ChineseSplit;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
