@@ -13,23 +13,34 @@ import java.util.BitSet;
 */
 public class BloomFilter {  
   
-    private static final int DEFAULT_SIZE = 2 << 29;//布隆过滤器的比特长度  
-    private static final int[] seeds = {3,5,7, 11, 13, 31, 37, 61};//这里要选取质数，能很好的降低错误率  
-    private static BitSet bits = new BitSet(DEFAULT_SIZE);  
-    private static SimpleHash[] func = new SimpleHash[seeds.length];  
+    public  int DEFAULT_SIZE ; 
+    public  int[] seeds  ; 
+    public  BitSet bits ; 
+    public  SimpleHash[] func ; 
+    
+    public BloomFilter(){
+    	DEFAULT_SIZE = 2 << 28;
+    	seeds  = new int[]{3,5,7, 11, 13, 31, 37, 61};
+    	bits = new BitSet(DEFAULT_SIZE);
+    	func  = new SimpleHash[seeds.length];
+        for (int i = 0; i < seeds.length; i++) {  
+            func[i] = new SimpleHash(DEFAULT_SIZE, seeds[i]);  
+        } 
+    }
   
-    public static void addValue(String value)  
+    public  void addValue(String value)  
     {  
+    	
         for(SimpleHash f : func)//将字符串value哈希为8个或多个整数，然后在这些整数的bit上变为1  
             bits.set(f.hash(value),true);  
     }  
       
-    public static void add(String value)  
+    public  void add(String value)  
     {  
         if(value != null) addValue(value);  
     }  
       
-    public static boolean contains(String value)  
+    public  boolean contains(String value)  
     {  
         if(value == null) return false;  
         boolean ret = true;  
@@ -40,11 +51,10 @@ public class BloomFilter {
       
     public static void main(String[] args) {  
         String value = "xkeyideal@gmail.com";  
-        for (int i = 0; i < seeds.length; i++) {  
-            func[i] = new SimpleHash(DEFAULT_SIZE, seeds[i]);  
-        }  
-        add(value);  
-        System.out.println(contains(value+"abc"));  
+
+        BloomFilter bf = new BloomFilter();
+        bf.add(value);  
+        System.out.println(bf.contains(value+"abc"));  
     }  
 }  
   

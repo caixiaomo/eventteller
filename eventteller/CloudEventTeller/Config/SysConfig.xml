@@ -12,4 +12,7 @@
 	<Config name="WebEventIndexPath">
 		<Path>/home/mblank/EventIndex</Path>
 	</Config>
+	<Config name="UrlsBloomFilterFilePath">
+		<Path>E:\\share\\urls</Path>
+	</Config>
 </Configs>
