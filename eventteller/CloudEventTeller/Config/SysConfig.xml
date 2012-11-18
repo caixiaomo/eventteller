@@ -13,6 +13,6 @@
 		<Path>/home/mblank/EventIndex</Path>
 	</Config>
 	<Config name="UrlsBloomFilterFilePath">
-		<Path>E:\\share\\urls</Path>
+		<Path>/home/iir/hgj/bloom/urls</Path>
 	</Config>
 </Configs>

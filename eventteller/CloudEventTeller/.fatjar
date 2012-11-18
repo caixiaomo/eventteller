@@ -1,12 +1,12 @@
 #Fat Jar Configuration File
-#Sun Nov 11 13:20:33 CST 2012
+#Sun Nov 18 00:27:00 CST 2012
 onejar.license.required=true
 manifest.classpath=
 manifest.removesigners=true
 onejar.checkbox=false
-jarname=TopicTrace.jar
+jarname=UrlsCrawler.jar
 manifest.mergeall=true
-manifest.mainclass=news.core.TopicTrace
+manifest.mainclass=news.crawler.webSiteCrawler.UrlsCrawler
 manifest.file=<createnew>
 jarname.isextern=false
 onejar.expand=
