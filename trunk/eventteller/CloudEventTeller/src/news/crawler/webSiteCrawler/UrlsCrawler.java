@@ -73,7 +73,7 @@ public class UrlsCrawler{
 					result.put(url_name, name);
 				}
 			}
-		}		
+		}	
 		return result;
 	}
 	
@@ -236,8 +236,11 @@ public class UrlsCrawler{
 				title_len+=tn.getTitle().length();
 				title_size++;
 			}
-				System.out.println(str_url+"-----"+"--"+url_size+"--"+((float)url_len/(float)url_size)+"--"+((float)title_len/(float)title_size));
-				Log.getLogger().info(ws.SiteName+" "+str_url+" "+url_len+" "+url_size+" "+title_len+" "+title_size);
+			System.out.println(str_url+"-----"+"--"+url_size+"--"+((float)url_len/(float)url_size)+"--"+((float)title_len/(float)title_size));
+			Log.getLogger().info(ws.SiteName+" "+str_url+" "+url_len+" "+url_size+" "+title_len+" "+title_size);
+			//for gc
+			mp_url = null;
+			st_mp = null;
 		}
 		Collection<titleNews> st_tn_mp = mp_tn.values();
 		Iterator<titleNews> it_tn_mp = st_tn_mp.iterator();
@@ -248,6 +251,9 @@ public class UrlsCrawler{
 			}
 			ls_result.add(re_tn);
 		}
+		//for gc
+		mp_tn = null;
+		st_url = null;
 		return ls_result;
 	}
 	
@@ -297,6 +303,9 @@ public class UrlsCrawler{
 		result.setSiteName(siteName);
 		result.setSites(url_types);		
 		result.setFilters(url_filter);	
+		//for gc
+		url_types = null;
+		url_filter = null;
 		return result;
 	}
 		
@@ -329,6 +338,8 @@ public class UrlsCrawler{
 			}	
 			Log.getLogger().info("Crawl from "+result.SiteName+"("+ls_temp.size()+") titleNews");
 		}
+		//for gc
+		ls_temp = null;
 		return ls_results;
 	}
 	
@@ -340,6 +351,8 @@ public class UrlsCrawler{
 			String line = "";
 			while((line = br.readLine())!=null){
 				bloomfilter.add(line.toString().toLowerCase());
+				///for gc
+				line = null;
 			}
 			br.close();
 		} catch (FileNotFoundException e) {
@@ -359,6 +372,8 @@ public class UrlsCrawler{
 				bw.write(tn.getUrl()+"\n");
 			}
 			bw.close();
+			//for gc
+			tns = null;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -375,6 +390,8 @@ public class UrlsCrawler{
 				e.printStackTrace();
 			}
 		}
+		//for gc
+		tns = null;
 		tx.commit();
 		session.flush();
 	}
@@ -398,10 +415,13 @@ public class UrlsCrawler{
 				}
 			}
 			updateUrlsDB(updateUrls);
-			WriterToBloomFile(updateUrls);
-			System.out.println("now end of Crawler..update urls -- " + updateUrls.size());
+			WriterToBloomFile(updateUrls);			
+			System.out.println("now end of Crawler..update urls -- " + updateUrls.size());			
+			///for gc
+			updateUrls = null;
+			NewUrls = null;			
 			System.gc();
-			System.out.println("end of java_gc..so happy~!");
+			System.out.println("end of java_gc..so happy~!");			
 			try {
 				System.out.println("now end of one crawler,sleep for:"+Const.WebSiteSleepTime/1000/60+" minutes. "+new Date().toString());
 				Log.getLogger().info("end crawler,sleep for:"+Const.WebSiteSleepTime/1000/60+" minutes");
