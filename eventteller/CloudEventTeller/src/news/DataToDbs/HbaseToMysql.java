@@ -193,7 +193,6 @@ public class HbaseToMysql {
     		subtopic_int = Integer.valueOf(subtopicid);
     	}catch(Exception e){
     		subtopic_int = 0;
-    		e.printStackTrace();
     	}    	
     	at.setId(Bytes.toInt(ids));
     	at.setTitle(title);
@@ -211,6 +210,7 @@ public class HbaseToMysql {
     	try {
 			at.setCrawltime(format.parse(crawltime));
 		} catch (ParseException e) {
+			at.setCrawltime(new Date());
 			e.printStackTrace();
 		}
 		return at;
@@ -259,8 +259,8 @@ public class HbaseToMysql {
 				session.flush();
 			}catch(Exception e){
 				System.out.println(at.getId());
-				System.out.println(at.getImgs());
-				e.printStackTrace();
+				System.out.println(at.getMainparagraph().length());
+				System.out.println(at.getMainparagraph());
 			}
 		}
 	}

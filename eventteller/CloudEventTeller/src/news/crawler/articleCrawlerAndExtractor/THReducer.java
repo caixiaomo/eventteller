@@ -1,6 +1,7 @@
 package news.crawler.articleCrawlerAndExtractor;
 
 import java.io.IOException;
+import java.util.Date;
 
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
@@ -13,6 +14,7 @@ import util.Const;
 
 	public class THReducer extends TableReducer<ImmutableBytesWritable, Text, ImmutableBytesWritable> {
 	 
+		@SuppressWarnings("deprecation")
 		public void reduce(ImmutableBytesWritable key, Iterable<Text> html, Context context)
 				throws IOException, InterruptedException {
 			Const.loadTaskid();
@@ -52,9 +54,9 @@ import util.Const;
 			put.add(Bytes.toBytes("info"), Bytes.toBytes("summarywords"), Bytes.toBytes(summarywords));
 			put.add(Bytes.toBytes("info"), Bytes.toBytes("img"), Bytes.toBytes(img));
 			put.add(Bytes.toBytes("info"), Bytes.toBytes("imgs"), Bytes.toBytes(imgs));
-			if(mainparagraph.length() > 250){
-				context.write(key, put);
-			}			
+			put.add(Bytes.toBytes("info"),Bytes.toBytes("crawltime"),Bytes.toBytes((new Date()).toLocaleString()));
+//			if(mainparagraph.length() > 250){
+				context.write(key, put);		
 			}
 		}
 	

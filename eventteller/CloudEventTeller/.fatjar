@@ -1,12 +1,12 @@
 #Fat Jar Configuration File
-#Sun Nov 18 00:27:00 CST 2012
+#Mon Nov 19 16:48:21 CST 2012
 onejar.license.required=true
 manifest.classpath=
 manifest.removesigners=true
 onejar.checkbox=false
-jarname=UrlsCrawler.jar
+jarname=HbaseToMysql.jar
 manifest.mergeall=true
-manifest.mainclass=news.crawler.webSiteCrawler.UrlsCrawler
+manifest.mainclass=news.DataToDbs.HbaseToMysql
 manifest.file=<createnew>
 jarname.isextern=false
 onejar.expand=
