@@ -44,7 +44,7 @@ public class ChineseSplit {
 //		check.put("t", true);
 		if(!check.containsKey(str))
 			result = false;
-		if(str.indexOf("n") == 0)
+		if(str.indexOf("n") == 0 || str.indexOf("v") >= 0)
 			result = true;
 //		if(str.indexOf("a") >= 0)
 //			result = true;

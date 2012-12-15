@@ -401,7 +401,6 @@ public class UrlsCrawler{
 		Const.loadTaskid();
 		BloomFilter bf = InitBloomFilter();
 		System.out.println("bloom filter init ok...");	
-		while(true){	
 			Log.getLogger().info("Start Crawler for titleCrawler");
 			List<titleNews> NewUrls = new ArrayList<titleNews>();
 			NewUrls = getAllTitleNews();
@@ -422,6 +421,16 @@ public class UrlsCrawler{
 			NewUrls = null;			
 			System.gc();
 			System.out.println("end of java_gc..so happy~!");			
+	}
+	
+	
+	public static void main(String[] args){
+		
+		while(true){
+			UrlsCrawler uc = new UrlsCrawler();
+			uc.runTask();
+			//for gc
+			uc = null;
 			try {
 				System.out.println("now end of one crawler,sleep for:"+Const.WebSiteSleepTime/1000/60+" minutes. "+new Date().toString());
 				Log.getLogger().info("end crawler,sleep for:"+Const.WebSiteSleepTime/1000/60+" minutes");
@@ -432,12 +441,7 @@ public class UrlsCrawler{
 			}
 			
 		}
-	}
-	
-	
-	public static void main(String[] args){
-		UrlsCrawler uc = new UrlsCrawler();
-		uc.runTask();
+		
 	}
 
 }

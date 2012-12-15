@@ -222,7 +222,6 @@ public class ArticleExtractor {
 		String result = "";
 		NewsMainContentExtractor nmce = new NewsMainContentExtractor(DOC);
 		Element main = nmce.getMainElement();
-		System.out.println(main.attr("class"));
 		result = Util.ListToStrForm(nmce.getMainParagraph(main));
 		return result;
 	}
@@ -253,7 +252,9 @@ public class ArticleExtractor {
 		Element main = nmce.getMainElement();
 		List<String> imgs = nmce.getImgUrls(main);
 		List<String> mainP = nmce.getMainParagraph(main);
-		imgs = nmce.cleanImgUrls(imgs,mainP.get(mainP.size() -1));
+		if(mainP.size() >= 1){
+			imgs = nmce.cleanImgUrls(imgs,mainP.get(mainP.size() -1));
+		}		
 		return imgs;
 	}
 	
