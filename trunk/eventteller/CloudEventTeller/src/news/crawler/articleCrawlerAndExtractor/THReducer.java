@@ -18,7 +18,13 @@ import util.Const;
 		public void reduce(ImmutableBytesWritable key, Iterable<Text> html, Context context)
 				throws IOException, InterruptedException {
 			Const.loadTaskid();
-			byte[] temp_by = downloadHtml.toBytes(html.iterator().next().toString());
+			String in_content = html.iterator().next().toString();
+			String[] its = in_content.split("!##!");
+			if(its == null || its.length != 2 )
+				return;
+			String url = its[0];
+			String in_crawltime = its[1];
+			byte[] temp_by = downloadHtml.toBytes(url);
 			if(temp_by!=null){
 				
 			String temp = Bytes.toString(temp_by);   
@@ -54,7 +60,11 @@ import util.Const;
 			put.add(Bytes.toBytes("info"), Bytes.toBytes("summarywords"), Bytes.toBytes(summarywords));
 			put.add(Bytes.toBytes("info"), Bytes.toBytes("img"), Bytes.toBytes(img));
 			put.add(Bytes.toBytes("info"), Bytes.toBytes("imgs"), Bytes.toBytes(imgs));
-			put.add(Bytes.toBytes("info"),Bytes.toBytes("crawltime"),Bytes.toBytes((new Date()).toLocaleString()));
+			if(in_crawltime.length() > 0){
+				put.add(Bytes.toBytes("info"),Bytes.toBytes("crawltime"),Bytes.toBytes(in_crawltime));
+			}else{
+				put.add(Bytes.toBytes("info"),Bytes.toBytes("crawltime"),Bytes.toBytes((new Date()).toLocaleString()));
+			}
 //			if(mainparagraph.length() > 250){
 				context.write(key, put);		
 			}

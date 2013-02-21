@@ -291,14 +291,9 @@ public class TopicTrace {
 		updateTopicDB(ls_tps);
 		updateEventDB(ls_results);
 		//update the index
-		while(true){
-			System.out.println("update index!...");
-			EventIndex ai = new EventIndex();
-			int num = ai.createOrUpdateIndex();
-			if(num == 0){
-				break;
-			} 
-		}
+		System.out.println("update index!...");
+		EventIndex ai = new EventIndex();
+		ai.createOrUpdateIndexFromList(ls_results);
 		System.out.println("end update!");
 		return ls_results.size();
 	}

@@ -1,12 +1,12 @@
 #Fat Jar Configuration File
-#Mon Nov 19 16:48:21 CST 2012
+#Sun Feb 17 22:04:45 CST 2013
 onejar.license.required=true
 manifest.classpath=
 manifest.removesigners=true
 onejar.checkbox=false
-jarname=HbaseToMysql.jar
+jarname=EventInfoGenerator.jar
 manifest.mergeall=true
-manifest.mainclass=news.DataToDbs.HbaseToMysql
+manifest.mainclass=news.core.EventInfoGenerator
 manifest.file=<createnew>
 jarname.isextern=false
 onejar.expand=

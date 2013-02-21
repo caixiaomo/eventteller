@@ -171,13 +171,18 @@ public class UrlsCrawler{
 		url = url.replaceAll("//", "/");
 		String[] url_spilt = url.split("/");
 		//there is no filter for the url
-		if(check_str[1].equalsIgnoreCase("null")){
+		if(check_str == null || check_str.length == 0 || (check_str.length > 0 && check_str[1].equalsIgnoreCase("null"))){
 			return true;
 		}		
-		for(int i=1;i<check_str.length;i++){
-			if(!url_spilt[i].equalsIgnoreCase(check_str[i]))
-				bo_result = false;
-		}	
+		try{
+			for(int i=1;i<check_str.length;i++){
+				if(!url_spilt[i].equalsIgnoreCase(check_str[i]))
+					bo_result = false;
+			}	
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
 		if(tn.getTitle()==null){
 			return false;
 		}	
@@ -290,7 +295,11 @@ public class UrlsCrawler{
 				str_filter[i+1] = els_filter.get(i).getText();
 			}
 			Element el_url_len = node_url.element("AvgUrlLength");
-			url_avg_len = Integer.valueOf(el_url_len.getText());
+			try{
+				url_avg_len = Integer.valueOf(el_url_len.getText());
+			}catch(Exception e){
+				System.out.println(str_url);
+			}			
 			Element el_title_len = node_url.element("AvgTitleLength");
 			title_avg_len = Integer.valueOf(el_title_len.getText());
 			titleNewsFilter tnf = new titleNewsFilter();
@@ -420,7 +429,7 @@ public class UrlsCrawler{
 			updateUrls = null;
 			NewUrls = null;			
 			System.gc();
-			System.out.println("end of java_gc..so happy~!");			
+			System.out.println("end of java_gc..so happy~!");	
 	}
 	
 	

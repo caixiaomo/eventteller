@@ -67,6 +67,8 @@ public class Const implements IConst{
 	public static int TopicToIndex = 2;
 	public static int TopicToWebIndex = 3;
 	public static int EventToTopic = 1;
+	public static int EventToIndex = 2;
+	public static int EventToWebIndex = 2;
 	public static int NotEventToTopic = 0;
 	public static int MaxEventToTopicNum = 20;
 	
@@ -87,6 +89,7 @@ public class Const implements IConst{
 			TASKID.put("ArticleToEvent", 6);
 			TASKID.put("UseMysqlArticleToIndex", 7);
 			TASKID.put("ArticleToWebIndex", 8);
+			TASKID.put("EventToWebIndex", 8);
 		}
 		return TASKID;		
 	}

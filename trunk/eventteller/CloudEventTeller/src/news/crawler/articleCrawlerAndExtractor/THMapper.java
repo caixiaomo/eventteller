@@ -18,9 +18,11 @@ public class THMapper extends TableMapper<ImmutableBytesWritable, Text> {
 
         NavigableMap<byte[],byte[]> ngm = values.getFamilyMap("info".getBytes());
         byte[] by_url = ngm.get("url".getBytes());
-        String str_url = Bytes.toString(by_url);
+        byte[] crawltime = ngm.get("crawltime".getBytes());
+        String str_url = Bytes.toString(by_url );
+        String str_crawltime = Bytes.toString(crawltime );
         try {
-            context.write(row,new Text(str_url));
+            context.write(row,new Text(str_url + "!##!" + str_crawltime));
         } catch (InterruptedException e) {
             throw new IOException(e);
         }
