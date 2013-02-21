@@ -29,6 +29,10 @@ import db.data.event;
 * @author: mblank
 * @date: 2012-3-30 上午11:33:56
 * @Description: detect the article's event
+* @taskstatus 0 -- no topic 
+*              1 -- topic , no index
+*              2 -- index, no webindex
+*              3 -- webindex
 * @Marks: will modify event_day , aritlce db
 */
 public class EventDetection {
@@ -267,7 +271,8 @@ public class EventDetection {
 		cl.setTime(at.getCrawltime());
 		int day = 0;
 		day = cl.get(Calendar.DAY_OF_YEAR);
-		ev.setDay(day);
+		///cal from 2012-1-1 so now is 2013 , will add 366 days
+		ev.setDay(day + 366);
 		ev.setTaskstatus(Const.NotEventToTopic);
 		ev.setTopicid(Const.NotEventToTopic);
 		session.saveOrUpdate(ev);

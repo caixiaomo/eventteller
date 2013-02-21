@@ -47,8 +47,8 @@ public class EventInfoGenerator {
 	@SuppressWarnings("unchecked")
 	public List<event> getMaxDayEventFromDB(int days){
 		List<event> results = new ArrayList<event>();
-		String hql = "from event as obj where obj.day ="+String.valueOf(days);
-//		String hql = "from event as obj where obj.title = null and obj.day !="+String.valueOf(days);
+//		String hql = "from event as obj where obj.day = " +String.valueOf(days);
+		String hql = "from event as obj where obj.day = 413";
 		Query query = session.createQuery(hql);
 		results = (List<event>)query.list();
 		return results;
@@ -366,6 +366,7 @@ public class EventInfoGenerator {
 		List<article> articles = new ArrayList<article>();
 		List<Word> words = new ArrayList<Word>();
 		Map<String,Boolean> tmp_mp = new HashMap<String,Boolean>();
+		Date time = new Date();
 		String summarywords  = "";
 		String summary = "";
 		String title = "";
@@ -376,6 +377,9 @@ public class EventInfoGenerator {
 		articles = getArticleFromEvent(en);
 		if(articles.size() <= Const.EventInfoGeneratorLeastNum)
 			return en;
+		if(articles.size() > 0){
+			time = articles.get(0).getCrawltime();
+		}
 		words = combineAllArticleSummary(articles);
 		words = getTopNWord(words , Const.EventSummaryWordsTopN);
 		summarywords = changeListToString(words);
@@ -394,7 +398,8 @@ public class EventInfoGenerator {
 		en.setImg(img);
 		en.setSubtopicid(subtopicid);
 		en.setProvince(ps);
-		System.out.println("update for evnet " + en.getId()+"--"+en.getTitle()+"--"+en.getArticles());		
+		en.setTime(time);
+//		System.out.println("update for evnet " + en.getId()+"--"+en.getTitle()+"--"+en.getArticles());		
 		return en;
 	}
 	
@@ -415,8 +420,8 @@ public class EventInfoGenerator {
 				event en_new = new event();
 				en_new = setEventContent(en);
 				results_en.add(en_new);
-				if(num_update % 10 == 0){
-					System.out.println("update the events!...");
+				if(num_update % 500 == 0){
+					System.out.println((double)num_update * 100 / (double)events.size() + " %");
 					updateEventDBList(results_en);
 					results_en.clear();
 				}

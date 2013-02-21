@@ -337,6 +337,7 @@ public class ArticleIndex {
 		List<Integer> ls_results = new ArrayList<Integer>();
 		Map<Integer,Boolean> temp_results = new HashMap<Integer,Boolean>();
 		org.apache.lucene.search.Query query=IKQueryParser.parse("mainpara",text);
+		
 		TopDocs docs=is.search(query, Const.NEIGHBORHORDSIZE);
 		for(int i=0;i<docs.scoreDocs.length;i++){
 			int docId=docs.scoreDocs[i].doc;

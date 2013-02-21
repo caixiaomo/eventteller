@@ -163,11 +163,52 @@ public class EventIndex extends ArticleIndex{
 		return results;
 	}
 	
-	public int createOrUpdateIndex(){
+//	public int createOrUpdateIndex(){
+//		IndexWriter iw = CreateIndex();
+//		List<event> ls_ia = new ArrayList<event>();
+//		List<event> ls_up_at = new ArrayList<event>();
+//		ls_ia = getEventFromDB();
+//		if(ls_ia==null){
+//			return 0;
+//		}
+//		for(event ia : ls_ia){
+//			int id = 0;
+//			String mainpara = "";
+//			id = ia.getId();
+//			mainpara = ia.getSummary();
+//			int day = 0;
+//			day = ia.getDay();
+//			if(iw!=null){
+//				org.apache.lucene.document.Document doc = new org.apache.lucene.document.Document();
+//				doc.add(new Field("id",String.valueOf(id),Field.Store.YES,Field.Index.NO));
+//				doc.add(new Field("mainpara",mainpara,Field.Store.NO,Field.Index.ANALYZED));
+//				doc.add(new Field("day",String.valueOf(day),Field.Store.YES,Field.Index.NO));
+//				try {
+//					iw.addDocument(doc);
+//				} catch (CorruptIndexException e) {
+//					e.printStackTrace();
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//			ia.setTaskstatus(Const.TopicToIndex);
+//			ls_up_at.add(ia);
+//		}
+//		try {
+//			iw.close();
+//		} catch (CorruptIndexException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		updateEventDB(ls_up_at);
+//		Log.getLogger().info("update db ok!");
+//		return ls_ia.size();
+//	}
+	
+	public int createOrUpdateIndexFromList(List<event> ls_ia){
 		IndexWriter iw = CreateIndex();
-		List<event> ls_ia = new ArrayList<event>();
 		List<event> ls_up_at = new ArrayList<event>();
-		ls_ia = getEventFromDB();
 		if(ls_ia==null){
 			return 0;
 		}
@@ -191,7 +232,7 @@ public class EventIndex extends ArticleIndex{
 					e.printStackTrace();
 				}
 			}
-			ia.setTaskstatus(Const.TopicToIndex);
+			ia.setTaskstatus(Const.EventToIndex);
 			ls_up_at.add(ia);
 		}
 		try {
