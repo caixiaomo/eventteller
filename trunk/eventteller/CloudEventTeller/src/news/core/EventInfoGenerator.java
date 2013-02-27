@@ -47,8 +47,17 @@ public class EventInfoGenerator {
 	@SuppressWarnings("unchecked")
 	public List<event> getMaxDayEventFromDB(int days){
 		List<event> results = new ArrayList<event>();
-//		String hql = "from event as obj where obj.day = " +String.valueOf(days);
-		String hql = "from event as obj where obj.day = 413";
+		String hql = "from event as obj where obj.day = " +String.valueOf(days);
+//		String hql = "from event as obj where obj.day = 413";
+		Query query = session.createQuery(hql);
+		results = (List<event>)query.list();
+		return results;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<event> getEventsFromDB(){
+		List<event> results = new ArrayList<event>();
+		String hql = "from event as obj where obj.updatestatus = 0" ;
 		Query query = session.createQuery(hql);
 		results = (List<event>)query.list();
 		return results;
@@ -399,6 +408,7 @@ public class EventInfoGenerator {
 		en.setSubtopicid(subtopicid);
 		en.setProvince(ps);
 		en.setTime(time);
+		en.setUpdatestatus(1);
 //		System.out.println("update for evnet " + en.getId()+"--"+en.getTitle()+"--"+en.getArticles());		
 		return en;
 	}
@@ -409,11 +419,12 @@ public class EventInfoGenerator {
 		
 		while(true){
 			List<event> results_en = new ArrayList<event>();
-			int maxDay = 0;
+//			int maxDay = 0;
 			int num_update = 0;
 			List<event> events = new ArrayList<event>();
-			maxDay = getMaxDayFromEventDB();
-			events = getMaxDayEventFromDB(maxDay);
+//			maxDay = getMaxDayFromEventDB();
+//			events = getMaxDayEventFromDB(maxDay);
+			events = getEventsFromDB();
 			System.out.println(events.size());
 			for(event en : events){
 				num_update++;

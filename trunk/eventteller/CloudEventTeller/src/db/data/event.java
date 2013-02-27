@@ -13,6 +13,7 @@ public class event {
 	private Integer number;
 	private String  articles;
 	private Integer taskstatus;
+	private Integer updatestatus;
 	private Integer topicid;
 	private String  img;
 	private String  imgs;
@@ -107,6 +108,12 @@ public class event {
 	}
 	public void setImgs(String imgs) {
 		this.imgs = imgs;
+	}
+	public Integer getUpdatestatus() {
+		return updatestatus;
+	}
+	public void setUpdatestatus(Integer updatestatus) {
+		this.updatestatus = updatestatus;
 	}
 	
 	

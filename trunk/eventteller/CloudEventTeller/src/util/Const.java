@@ -31,8 +31,8 @@ public class Const implements IConst{
 	public static int MeaningFulStrLen = 10;
 	public static int NoMeaningSigns = 3;
 	public static int SummaryTitleWordsWeighs = 3;
-	public static double MaxEventSimNum = 0.3;
-	public static double MaxTopicSimNum = 0.25;
+	public static double MaxEventSimNum = 0.7;
+	public static double MaxTopicSimNum = 0.4;
 	public static double AVGIDF = 8;
 	public static long AVGIDFTF = 8;
 	
