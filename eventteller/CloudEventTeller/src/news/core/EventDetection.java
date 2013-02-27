@@ -29,10 +29,12 @@ import db.data.event;
 * @author: mblank
 * @date: 2012-3-30 上午11:33:56
 * @Description: detect the article's event
-* @taskstatus 0 -- no topic 
+* @taskstatus 0 -- no topic
 *              1 -- topic , no index
 *              2 -- index, no webindex
 *              3 -- webindex
+* @updatestatus 0 -- need update
+* 				  1 -- no need to update
 * @Marks: will modify event_day , aritlce db
 */
 public class EventDetection {
@@ -61,6 +63,20 @@ public class EventDetection {
 		Log.getLogger().info("Find article (not have eventid) in db: "+results.size());		
 		return results;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public event getEventById(int id){
+		List<event> results = new ArrayList<event>();
+		String hql = "from event as obj where obj.id="+String.valueOf(id);
+		Query query = session.createQuery(hql).setMaxResults(Const.MysqlToIndexMaxItemNum);
+		results = (List<event>)query.list();
+		event result = new event();
+		if(results.size()>0){
+			result = results.get(0);
+		}
+		return result;
+	}
+	
 	
 	/** just for test
 	 * @param at
@@ -266,7 +282,7 @@ public class EventDetection {
 	public void updateNewEvent(article at){
 		event ev = new event();
 		Transaction tx = session.beginTransaction();
-		ev.setTime(new Date());
+		ev.setTime(at.getCrawltime());
 		Calendar cl = Calendar.getInstance();
 		cl.setTime(at.getCrawltime());
 		int day = 0;
@@ -275,6 +291,15 @@ public class EventDetection {
 		ev.setDay(day + 366);
 		ev.setTaskstatus(Const.NotEventToTopic);
 		ev.setTopicid(Const.NotEventToTopic);
+		ev.setUpdatestatus(0);
+		session.saveOrUpdate(ev);
+		tx.commit();
+		session.flush();	
+	}
+	
+	public void updateEvent(event ev){
+		Transaction tx = session.beginTransaction();
+		ev.setUpdatestatus(0);
 		session.saveOrUpdate(ev);
 		tx.commit();
 		session.flush();	
@@ -344,6 +369,8 @@ public class EventDetection {
 				article temp =  getArticleById(max_id);
 				ls_at.setEventid(temp.getEventid());
 				ls_at.setTaskstatus(Const.TASKID.get("ArticleToEvent"));
+				event tmp_et = getEventById(temp.getEventid());
+				updateEvent(tmp_et);
 			}else{
 				////update event get the new eventid set it to article
 				updateNewEvent(ls_at);

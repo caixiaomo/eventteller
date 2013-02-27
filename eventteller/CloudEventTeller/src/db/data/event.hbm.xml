@@ -70,6 +70,13 @@
 			length="32"
 		/>
 		<property
+			name="updatestatus"
+			column="updatestatus"
+			type="integer"
+			not-null="false"
+			length="32"
+		/>
+		<property
 			name="topicid"
 			column="topic"
 			type="integer"

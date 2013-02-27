@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
+//import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -312,17 +312,27 @@ public class ArticleIndex {
 	 * @Description:check date_1 and date_2 is same day or not
 	 */
 	public boolean checkSameDay(Date dt1 , Date dt2){
-		boolean check = false;
-		Calendar cl1 = Calendar.getInstance();
-		Calendar cl2 = Calendar.getInstance();
-		cl1.setTime(dt1);
-		cl2.setTime(dt2);
-		int day1 = cl1.get(Calendar.DAY_OF_YEAR);
-		int day2 = cl2.get(Calendar.DAY_OF_YEAR);
-		if(day1 == day2){
-			check  = true;
-		}
-		return check;
+		
+		
+		long sub_time =Math.abs( dt1.getTime() - dt2.getTime() );
+		
+		sub_time = sub_time / 1000 / 60 /60 /24 ;
+		if(sub_time < 3)
+			return true;
+		else{
+			return false;
+		}		
+//		boolean check = false;
+//		Calendar cl1 = Calendar.getInstance();
+//		Calendar cl2 = Calendar.getInstance();
+//		cl1.setTime(dt1);
+//		cl2.setTime(dt2);
+//		int day1 = cl1.get(Calendar.DAY_OF_YEAR);
+//		int day2 = cl2.get(Calendar.DAY_OF_YEAR);
+//		if(day1 == day2){
+//			check  = true;
+//		}
+//		return check;
 	}
 	
 	/**
